@@ -1,19 +1,18 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
+    id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
 apply from: '../shared_dependencies.gradle'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "android.marc.com.harrypotterapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

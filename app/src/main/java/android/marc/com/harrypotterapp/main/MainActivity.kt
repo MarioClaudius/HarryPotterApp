@@ -1,5 +1,6 @@
-package android.marc.com.harrypotterapp
+package android.marc.com.harrypotterapp.main
 
+import android.marc.com.harrypotterapp.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
