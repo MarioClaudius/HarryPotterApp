@@ -33,10 +33,10 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_story_name"
+                android:id="@+id/tv_character_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Mario Claudius"
+                tools:text="Harry Potter"
                 app:layout_constraintEnd_toEndOf="@id/cv_layout"
                 app:layout_constraintStart_toStartOf="@id/cv_layout"
                 app:layout_constraintTop_toBottomOf="@id/character_img"
