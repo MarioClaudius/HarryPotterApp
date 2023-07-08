@@ -1,5 +1,6 @@
 package android.marc.com.core.data.source.remote.response
 
+import androidx.annotation.Nullable
 import com.google.gson.annotations.SerializedName
 
 data class CharacterResponse(
@@ -19,7 +20,7 @@ data class CharacterResponse(
     val house: String,
 
     @field:SerializedName("dateOfBirth")
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
 
     @field:SerializedName("wizard")
     val isWizard: Boolean,

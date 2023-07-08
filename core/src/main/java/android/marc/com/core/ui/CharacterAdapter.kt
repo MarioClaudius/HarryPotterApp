@@ -1,5 +1,7 @@
 package android.marc.com.core.ui
 
+import android.marc.com.core.R
+import android.marc.com.core.data.source.local.entity.CharacterEntity
 import android.marc.com.core.data.source.remote.response.CharacterResponse
 import android.marc.com.core.databinding.ItemListDataBinding
 import android.view.LayoutInflater
@@ -14,8 +16,8 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     private var onItemClickCallBack: OnItemClickCallback? = null
 
-    var characterListData = ArrayList<Character>()
-    fun setData(newCharacterListData: List<Character>?) {
+    private var characterListData = ArrayList<CharacterEntity>()
+    fun setData(newCharacterListData: List<CharacterEntity>?) {
         if (newCharacterListData == null) return
         characterListData.clear()
         characterListData.addAll(newCharacterListData)
@@ -34,12 +36,12 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         Log.d("ADAPTER", character.imageUrl)
         holder.apply {
             Glide.with(itemView.context)
-                .load(character.imageUrl)
+                .load(if(character.imageUrl.isEmpty()) R.drawable.unknown_profile else character.imageUrl)
                 .into(binding.characterImg)
             binding.apply {
                 tvCharacterName.text = character.name
                 itemView.setOnClickListener {
-                    onItemClickCallBack?.onItemClicked(character.id)
+                    onItemClickCallBack?.onItemClicked(character.characterId)
                 }
             }
         }

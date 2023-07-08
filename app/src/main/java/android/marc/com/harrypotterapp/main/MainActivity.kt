@@ -1,6 +1,7 @@
 package android.marc.com.harrypotterapp.main
 
 import android.content.Intent
+import android.marc.com.core.data.ResourceStatus
 import android.marc.com.core.ui.CharacterAdapter
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ViewModelFactory
@@ -47,19 +48,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(adapter: CharacterAdapter) {
-        mainViewModel = ViewModelProvider(this, ViewModelFactory())[MainViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
-        mainViewModel.characterList.observe(this) { characterList ->
-            adapter.setData(characterList)
-        }
-
-        mainViewModel.isLoading.observe(this) { isLoading ->
-            if (isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
+        mainViewModel.characters.observe(this) { characters ->
+            if (characters != null) {
+                when(characters) {
+                    is ResourceStatus.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is ResourceStatus.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        adapter.setData(characters.data)
+                    }
+                    is ResourceStatus.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        // tambahan ui error jika perlu
+                    }
+                }
             }
         }
+//        mainViewModel.characterList.observe(this) { characterList ->
+//            adapter.setData(characterList)
+//        }
+//
+//        mainViewModel.isLoading.observe(this) { isLoading ->
+//            if (isLoading) {
+//                binding.progressBar.visibility = View.VISIBLE
+//            } else {
+//                binding.progressBar.visibility = View.GONE
+//            }
+//        }
     }
 
     companion object {
