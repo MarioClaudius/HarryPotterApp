@@ -14,7 +14,7 @@ object Injection {
     fun provideRepository(context: Context): CharacterRepository {
         val database = CharacterDatabase.getInstance(context)
 
-        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig().getApiService())
+        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.getApiService())
         val localDataSource = LocalDataSource.getInstance(database.characterDao())
         val appExecutors = AppExecutors()
 

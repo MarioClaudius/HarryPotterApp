@@ -11,6 +11,9 @@ import android.marc.com.core.utils.AppExecutors
 import android.marc.com.core.utils.DataMapper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class CharacterRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -31,10 +34,10 @@ class CharacterRepository private constructor(
             }
     }
 
-    override fun getAllCharacters(): LiveData<ResourceStatus<List<Character>>> =
+    override fun getAllCharacters(): Flowable<ResourceStatus<List<Character>>> =
         object : NetworkBoundResource<List<CharacterResponse>, List<Character>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Character>> {
-                return Transformations.map(localDataSource.getAllCharacters()) {
+            override fun loadFromDB(): Flowable<List<Character>> {
+                return localDataSource.getAllCharacters().map {
                     DataMapper.mapEntityToDomain(it)
                 }
             }
@@ -42,17 +45,20 @@ class CharacterRepository private constructor(
             override fun shouldFetch(data: List<Character>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createApiCall(): LiveData<ApiResponse<List<CharacterResponse>>> =
+            override fun createApiCall(): Flowable<ApiResponse<List<CharacterResponse>>> =
                 remoteDataSource.getAllCharacters()
 
             override fun saveCallResult(data: List<CharacterResponse>) {
                 val characterList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertCharacters(characterList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
             }
-        }.asLiveData()
+        }.asFlowable()
 
-    override fun getFavoriteCharacters(): LiveData<List<Character>> {
-        return Transformations.map(localDataSource.getFavoriteCharacters()) {
+    override fun getFavoriteCharacters(): Flowable<List<Character>> {
+        return localDataSource.getFavoriteCharacters().map {
             DataMapper.mapEntityToDomain(it)
         }
     }

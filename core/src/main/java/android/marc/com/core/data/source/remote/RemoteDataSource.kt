@@ -6,6 +6,11 @@ import android.marc.com.core.data.source.remote.response.CharacterResponse
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,27 +26,20 @@ class RemoteDataSource private constructor(private val apiService: ApiService){
             }
     }
 
-    fun getAllCharacters() : LiveData<ApiResponse<List<CharacterResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<CharacterResponse>>>()
+    fun getAllCharacters() : Flowable<ApiResponse<List<CharacterResponse>>> {
+        val resultData = PublishSubject.create<ApiResponse<List<CharacterResponse>>>()
+        apiService.getAllCharacters()
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val characterList = response
+                resultData.onNext(if (characterList.isNotEmpty()) ApiResponse.Success(characterList) else ApiResponse.Empty)
+            }, { error ->
+                resultData.onNext(ApiResponse.Error(error.message.toString()))
+                Log.e("RemoteDataSource", error.toString())
+            })
 
-        apiService.getAllCharacters().enqueue(object : Callback<List<CharacterResponse>>{
-            override fun onResponse(
-                call: Call<List<CharacterResponse>>,
-                response: Response<List<CharacterResponse>>
-            ) {
-                val characterList = response.body()
-                if (characterList == null || characterList.isEmpty()) {
-                    resultData.value = ApiResponse.Empty
-                } else {
-                    resultData.value = ApiResponse.Success(characterList)
-                }
-            }
-
-            override fun onFailure(call: Call<List<CharacterResponse>>, t: Throwable) {
-                resultData.value = ApiResponse.Error(t.toString())
-                Log.e("RemoteDataSource", t.toString())
-            }
-        })
-        return resultData
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
     }
 }
