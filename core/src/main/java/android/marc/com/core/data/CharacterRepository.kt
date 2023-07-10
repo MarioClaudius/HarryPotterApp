@@ -2,12 +2,14 @@ package android.marc.com.core.data
 
 import android.marc.com.core.data.source.local.LocalDataSource
 import android.marc.com.core.data.source.local.entity.CharacterEntity
+import android.marc.com.core.domain.model.Character
 import android.marc.com.core.data.source.remote.RemoteDataSource
 import android.marc.com.core.data.source.remote.api.ApiResponse
 import android.marc.com.core.data.source.remote.response.CharacterResponse
 import android.marc.com.core.utils.AppExecutors
 import android.marc.com.core.utils.DataMapper
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 
 class CharacterRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -28,13 +30,15 @@ class CharacterRepository private constructor(
             }
     }
 
-    fun getAllCharacters(): LiveData<ResourceStatus<List<CharacterEntity>>> =
-        object : NetworkBoundResource<List<CharacterResponse>, List<CharacterEntity>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<CharacterEntity>> {
-                return localDataSource.getAllCharacters()
+    fun getAllCharacters(): LiveData<ResourceStatus<List<Character>>> =
+        object : NetworkBoundResource<List<CharacterResponse>, List<Character>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Character>> {
+                return Transformations.map(localDataSource.getAllCharacters()) {
+                    DataMapper.mapEntityToDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<CharacterEntity>?): Boolean =
+            override fun shouldFetch(data: List<Character>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createApiCall(): LiveData<ApiResponse<List<CharacterResponse>>> =
@@ -46,11 +50,13 @@ class CharacterRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteCharacters(): LiveData<List<CharacterEntity>> {
-        return localDataSource.getFavoriteCharacters()
+    fun getFavoriteCharacters(): LiveData<List<Character>> {
+        return Transformations.map(localDataSource.getFavoriteCharacters()) {
+            DataMapper.mapEntityToDomain(it)
+        }
     }
 
-    fun setFavoriteCharacter(character: CharacterEntity, state: Boolean) {
-        appExecutors.diskIO().execute{ localDataSource.setFavoriteCharacter(character, state) }
+    fun setFavoriteCharacter(characterId: String, state: Boolean) {
+        appExecutors.diskIO().execute{ localDataSource.setFavoriteCharacter(characterId, state) }
     }
 }

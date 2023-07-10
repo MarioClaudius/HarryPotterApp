@@ -16,6 +16,9 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacters(characters: List<CharacterEntity>)
 
+    @Query("UPDATE character SET is_favorite = :newState WHERE character_id = :characterId")
+    fun updateFavoriteCharacterById(characterId: String, newState: Boolean)
+
     @Update
     fun updateFavoriteCharacter(character: CharacterEntity)
 }

@@ -4,17 +4,233 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".detail.DetailActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_character"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:padding="30dp"
+        tools:src="@tools:sample/backgrounds/scenic"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
-        android:id="@+id/test"
+        android:id="@+id/tv_biodata_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Biodata"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/img_character"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
+    <TextView
+        android:id="@+id/tv_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_biodata_title"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Harry Potter"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_name_title"
+        app:layout_constraintTop_toTopOf="@id/tv_name_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_species_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Species:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_name_title"/>
+
+    <TextView
+        android:id="@+id/tv_species"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="human"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_species_title"
+        app:layout_constraintTop_toTopOf="@id/tv_species_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_gender_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_species_title"/>
+
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="male"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_gender_title"
+        app:layout_constraintTop_toTopOf="@id/tv_gender_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_house_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="House:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_gender_title"/>
+
+    <TextView
+        android:id="@+id/tv_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Gryfindor"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_house_title"
+        app:layout_constraintTop_toTopOf="@id/tv_house_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_birth_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Birth Date:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_house_title"/>
+
+    <TextView
+        android:id="@+id/tv_birth_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="31 September 2001"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_birth_date_title"
+        app:layout_constraintTop_toTopOf="@id/tv_birth_date_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_ancestry_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ancestry:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_birth_date_title"/>
+
+    <TextView
+        android:id="@+id/tv_ancestry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="half-blood"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_ancestry_title"
+        app:layout_constraintTop_toTopOf="@id/tv_ancestry_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_status_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_ancestry_title"/>
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="alive"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_status_title"
+        app:layout_constraintTop_toTopOf="@id/tv_status_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+
+    <TextView
+        android:id="@+id/tv_actor_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actor:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/img_character"
+        app:layout_constraintTop_toBottomOf="@id/tv_status_title"/>
+
+    <TextView
+        android:id="@+id/tv_actor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Daniel Radcliffe"
+        android:textColor="@color/white"
+        android:fontFamily="@font/comfortaa"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_actor_title"
+        app:layout_constraintTop_toTopOf="@id/tv_actor_title"
+        app:layout_constraintEnd_toEndOf="@id/img_character"/>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite"
+        app:tint="@color/white"
+        app:backgroundTint="@color/blue_purple"
+        app:fabCustomSize="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

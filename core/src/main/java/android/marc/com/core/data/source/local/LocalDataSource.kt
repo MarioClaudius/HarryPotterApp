@@ -20,8 +20,7 @@ class LocalDataSource private constructor(private val characterDao: CharacterDao
 
     fun insertCharacters(characterList: List<CharacterEntity>) = characterDao.insertCharacters(characterList)
 
-    fun setFavoriteCharacter(character: CharacterEntity, newState: Boolean) {
-        character.isFavorite = newState
-        characterDao.updateFavoriteCharacter(character)
+    fun setFavoriteCharacter(characterId: String, newState: Boolean) {
+        characterDao.updateFavoriteCharacterById(characterId, newState)
     }
 }

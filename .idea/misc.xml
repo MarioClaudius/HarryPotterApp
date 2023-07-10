@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/layout/activity_detail.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/layout/activity_favorite.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/layout/activity_splash.xml" value="0.12" />
+        <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/menu/option_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/HarryPotterApp/app/src/main/res/menu/options_menu.xml" value="0.253125" />
         <entry key="..\:/AndroidStudioProjects/HarryPotterApp/core/src/main/res/layout/item_list_data.xml" value="0.264" />
       </map>
     </option>

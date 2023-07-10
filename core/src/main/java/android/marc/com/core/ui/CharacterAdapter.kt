@@ -16,8 +16,8 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     private var onItemClickCallBack: OnItemClickCallback? = null
 
-    private var characterListData = ArrayList<CharacterEntity>()
-    fun setData(newCharacterListData: List<CharacterEntity>?) {
+    private var characterListData = ArrayList<Character>()
+    fun setData(newCharacterListData: List<Character>?) {
         if (newCharacterListData == null) return
         characterListData.clear()
         characterListData.addAll(newCharacterListData)
@@ -33,7 +33,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = characterListData[position]
-        Log.d("ADAPTER", character.imageUrl)
         holder.apply {
             Glide.with(itemView.context)
                 .load(if(character.imageUrl.isEmpty()) R.drawable.unknown_profile else character.imageUrl)
@@ -41,7 +40,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
             binding.apply {
                 tvCharacterName.text = character.name
                 itemView.setOnClickListener {
-                    onItemClickCallBack?.onItemClicked(character.characterId)
+                    onItemClickCallBack?.onItemClicked(character)
                 }
             }
         }
@@ -54,6 +53,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(characterId: String)
+        fun onItemClicked(character: Character)
     }
 }

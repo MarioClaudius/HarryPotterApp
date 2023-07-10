@@ -30,4 +30,24 @@ object DataMapper {
         }
         return characterList
     }
+
+    fun mapEntityToDomain(input: CharacterEntity) : Character {
+        return Character(
+            id = input.characterId,
+            name = input.name,
+            species = input.species,
+            gender = if(input.gender.isNotEmpty()) input.gender else "-",
+            house = input.house,
+            dateOfBirth = input.dateOfBirth,
+            ancestry = input.ancestry,
+            actor = input.actor,
+            status = if(input.isAlive) "alive" else "dead",
+            imageUrl = input.imageUrl,
+            isFavorite = input.isFavorite
+        )
+    }
+
+    fun mapEntityToDomain(inputList: List<CharacterEntity>) : List<Character> = inputList.map { characterEnt ->
+        mapEntityToDomain(characterEnt)
+    }
 }
