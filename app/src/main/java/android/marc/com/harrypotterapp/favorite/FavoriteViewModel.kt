@@ -1,9 +1,9 @@
 package android.marc.com.harrypotterapp.favorite
 
-import android.marc.com.core.data.CharacterRepository
+import android.marc.com.core.domain.usecase.CharacterUseCase
 import androidx.lifecycle.ViewModel
 
-class FavoriteViewModel(characterRepository: CharacterRepository) : ViewModel() {
+class FavoriteViewModel(characterUseCase: CharacterUseCase) : ViewModel() {
 
-    val favoriteCharacters = characterRepository.getFavoriteCharacters()
+    val favoriteCharacters = characterUseCase.getFavoriteCharacters()
 }

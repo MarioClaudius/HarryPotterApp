@@ -6,6 +6,7 @@ import android.marc.com.core.domain.model.Character
 import android.marc.com.core.data.source.remote.RemoteDataSource
 import android.marc.com.core.data.source.remote.api.ApiResponse
 import android.marc.com.core.data.source.remote.response.CharacterResponse
+import android.marc.com.core.domain.repository.ICharacterRepository
 import android.marc.com.core.utils.AppExecutors
 import android.marc.com.core.utils.DataMapper
 import androidx.lifecycle.LiveData
@@ -15,7 +16,7 @@ class CharacterRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) {
+) : ICharacterRepository {
     companion object {
         @Volatile
         private var instance: CharacterRepository? = null
@@ -30,7 +31,7 @@ class CharacterRepository private constructor(
             }
     }
 
-    fun getAllCharacters(): LiveData<ResourceStatus<List<Character>>> =
+    override fun getAllCharacters(): LiveData<ResourceStatus<List<Character>>> =
         object : NetworkBoundResource<List<CharacterResponse>, List<Character>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Character>> {
                 return Transformations.map(localDataSource.getAllCharacters()) {
@@ -50,13 +51,13 @@ class CharacterRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteCharacters(): LiveData<List<Character>> {
+    override fun getFavoriteCharacters(): LiveData<List<Character>> {
         return Transformations.map(localDataSource.getFavoriteCharacters()) {
             DataMapper.mapEntityToDomain(it)
         }
     }
 
-    fun setFavoriteCharacter(characterId: String, state: Boolean) {
+    override fun setFavoriteCharacter(characterId: String, state: Boolean) {
         appExecutors.diskIO().execute{ localDataSource.setFavoriteCharacter(characterId, state) }
     }
 }

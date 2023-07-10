@@ -1,9 +1,9 @@
 package android.marc.com.harrypotterapp.main
 
-import android.marc.com.core.data.CharacterRepository
+import android.marc.com.core.domain.usecase.CharacterUseCase
 import androidx.lifecycle.ViewModel
 
-class MainViewModel(characterRepository: CharacterRepository) : ViewModel() {
+class MainViewModel(characterUseCase: CharacterUseCase) : ViewModel() {
 
-    val characters = characterRepository.getAllCharacters()
+    val characters = characterUseCase.getAllCharacters()
 }

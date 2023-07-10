@@ -6,6 +6,8 @@ import android.marc.com.core.data.source.local.LocalDataSource
 import android.marc.com.core.data.source.local.room.CharacterDatabase
 import android.marc.com.core.data.source.remote.RemoteDataSource
 import android.marc.com.core.data.source.remote.api.ApiConfig
+import android.marc.com.core.domain.usecase.CharacterInteractor
+import android.marc.com.core.domain.usecase.CharacterUseCase
 import android.marc.com.core.utils.AppExecutors
 
 object Injection {
@@ -17,5 +19,10 @@ object Injection {
         val appExecutors = AppExecutors()
 
         return CharacterRepository.getInstance(remoteDataSource, localDataSource, appExecutors)
+    }
+
+    fun provideCharacterUseCase(context: Context) : CharacterUseCase {
+        val repository = provideRepository(context)
+        return CharacterInteractor(repository)
     }
 }
