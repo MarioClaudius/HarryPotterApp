@@ -1,7 +1,6 @@
 package android.marc.com.harrypotterapp
 
 import android.content.Context
-import android.marc.com.core.data.CharacterRepository
 import android.marc.com.core.di.Injection
 import android.marc.com.core.domain.usecase.CharacterUseCase
 import android.marc.com.harrypotterapp.detail.DetailViewModel

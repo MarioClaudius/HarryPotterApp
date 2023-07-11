@@ -1,22 +1,23 @@
 package android.marc.com.core.data.source.local.room
 
 import android.marc.com.core.data.source.local.entity.CharacterEntity
-import androidx.lifecycle.LiveData
-import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
 
     @Query("SELECT * FROM character")
-    fun getAllCharacters() : Flowable<List<CharacterEntity>>
+    fun getAllCharacters() : Flow<List<CharacterEntity>>
 
     @Query("SELECT * FROM character WHERE is_favorite = 1")
-    fun getFavoriteCharacters() : Flowable<List<CharacterEntity>>
+    fun getFavoriteCharacters() : Flow<List<CharacterEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacters(characters: List<CharacterEntity>) : Completable
+    suspend fun insertCharacters(characters: List<CharacterEntity>) //: Completable
 
     @Query("UPDATE character SET is_favorite = :newState WHERE character_id = :characterId")
     fun updateFavoriteCharacterById(characterId: String, newState: Boolean)

@@ -2,8 +2,7 @@ package android.marc.com.core.data.source.local
 
 import android.marc.com.core.data.source.local.entity.CharacterEntity
 import android.marc.com.core.data.source.local.room.CharacterDao
-import androidx.lifecycle.LiveData
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(private val characterDao: CharacterDao){
     companion object {
@@ -15,11 +14,11 @@ class LocalDataSource private constructor(private val characterDao: CharacterDao
             }
     }
 
-    fun getAllCharacters() : Flowable<List<CharacterEntity>> = characterDao.getAllCharacters()
+    fun getAllCharacters() : Flow<List<CharacterEntity>> = characterDao.getAllCharacters()
 
-    fun getFavoriteCharacters() : Flowable<List<CharacterEntity>> = characterDao.getFavoriteCharacters()
+    fun getFavoriteCharacters() : Flow<List<CharacterEntity>> = characterDao.getFavoriteCharacters()
 
-    fun insertCharacters(characterList: List<CharacterEntity>) = characterDao.insertCharacters(characterList)
+    suspend fun insertCharacters(characterList: List<CharacterEntity>) = characterDao.insertCharacters(characterList)
 
     fun setFavoriteCharacter(characterId: String, newState: Boolean) {
         characterDao.updateFavoriteCharacterById(characterId, newState)

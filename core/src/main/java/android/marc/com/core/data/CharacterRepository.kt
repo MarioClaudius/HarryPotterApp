@@ -1,19 +1,15 @@
 package android.marc.com.core.data
 
 import android.marc.com.core.data.source.local.LocalDataSource
-import android.marc.com.core.data.source.local.entity.CharacterEntity
-import android.marc.com.core.domain.model.Character
 import android.marc.com.core.data.source.remote.RemoteDataSource
 import android.marc.com.core.data.source.remote.api.ApiResponse
 import android.marc.com.core.data.source.remote.response.CharacterResponse
+import android.marc.com.core.domain.model.Character
 import android.marc.com.core.domain.repository.ICharacterRepository
 import android.marc.com.core.utils.AppExecutors
 import android.marc.com.core.utils.DataMapper
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class CharacterRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -34,9 +30,9 @@ class CharacterRepository private constructor(
             }
     }
 
-    override fun getAllCharacters(): Flowable<ResourceStatus<List<Character>>> =
+    override fun getAllCharacters(): Flow<ResourceStatus<List<Character>>> =
         object : NetworkBoundResource<List<CharacterResponse>, List<Character>>(appExecutors) {
-            override fun loadFromDB(): Flowable<List<Character>> {
+            override fun loadFromDB(): Flow<List<Character>> {
                 return localDataSource.getAllCharacters().map {
                     DataMapper.mapEntityToDomain(it)
                 }
@@ -45,19 +41,16 @@ class CharacterRepository private constructor(
             override fun shouldFetch(data: List<Character>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createApiCall(): Flowable<ApiResponse<List<CharacterResponse>>> =
+            override suspend fun createApiCall(): Flow<ApiResponse<List<CharacterResponse>>> =
                 remoteDataSource.getAllCharacters()
 
-            override fun saveCallResult(data: List<CharacterResponse>) {
+            override suspend fun saveCallResult(data: List<CharacterResponse>) {
                 val characterList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertCharacters(characterList)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
             }
-        }.asFlowable()
+        }.asFlow()
 
-    override fun getFavoriteCharacters(): Flowable<List<Character>> {
+    override fun getFavoriteCharacters(): Flow<List<Character>> {
         return localDataSource.getFavoriteCharacters().map {
             DataMapper.mapEntityToDomain(it)
         }

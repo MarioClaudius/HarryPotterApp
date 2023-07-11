@@ -1,14 +1,11 @@
 package android.marc.com.core.data.source.local.entity
 
-import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "character")
 data class CharacterEntity(
 
@@ -62,4 +59,4 @@ data class CharacterEntity(
 
     @ColumnInfo(name = "is_favorite")
     var isFavorite : Boolean = false
-) : Parcelable
+)

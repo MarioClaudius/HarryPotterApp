@@ -2,20 +2,18 @@ package android.marc.com.harrypotterapp.main
 
 import android.content.Intent
 import android.marc.com.core.data.ResourceStatus
-import android.marc.com.core.data.source.local.entity.CharacterEntity
 import android.marc.com.core.domain.model.Character
 import android.marc.com.core.ui.CharacterAdapter
-import android.marc.com.core.utils.DataMapper
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityMainBinding
 import android.marc.com.harrypotterapp.detail.DetailActivity
 import android.marc.com.harrypotterapp.favorite.FavoriteActivity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -89,6 +87,11 @@ class MainActivity : AppCompatActivity() {
             }
             else -> true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        characterAdapter.notifyDataSetChanged()
     }
 
     companion object {

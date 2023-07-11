@@ -1,18 +1,17 @@
 package android.marc.com.harrypotterapp.detail
 
+import android.marc.com.core.R.drawable
 import android.marc.com.core.domain.model.Character
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityDetailBinding
 import android.marc.com.harrypotterapp.main.MainActivity
-import android.marc.com.harrypotterapp.main.MainViewModel
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import android.marc.com.core.R.drawable
-import androidx.core.content.ContextCompat
 
 class DetailActivity : AppCompatActivity() {
 

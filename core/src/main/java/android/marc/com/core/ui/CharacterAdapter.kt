@@ -1,16 +1,12 @@
 package android.marc.com.core.ui
 
 import android.marc.com.core.R
-import android.marc.com.core.data.source.local.entity.CharacterEntity
-import android.marc.com.core.data.source.remote.response.CharacterResponse
 import android.marc.com.core.databinding.ItemListDataBinding
+import android.marc.com.core.domain.model.Character
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import android.marc.com.core.domain.model.Character
-import android.util.Log
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 

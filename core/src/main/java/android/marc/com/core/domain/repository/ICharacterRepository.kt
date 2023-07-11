@@ -2,14 +2,13 @@ package android.marc.com.core.domain.repository
 
 import android.marc.com.core.data.ResourceStatus
 import android.marc.com.core.domain.model.Character
-import androidx.lifecycle.LiveData
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 interface ICharacterRepository {
 
-    fun getAllCharacters() : Flowable<ResourceStatus<List<Character>>>
+    fun getAllCharacters() : Flow<ResourceStatus<List<Character>>>
 
-    fun getFavoriteCharacters(): Flowable<List<Character>>
+    fun getFavoriteCharacters(): Flow<List<Character>>
 
     fun setFavoriteCharacter(characterId: String, state: Boolean)
 }
