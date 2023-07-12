@@ -1,26 +1,16 @@
 package android.marc.com.harrypotterapp
 
-import android.content.Context
-import android.marc.com.core.di.Injection
 import android.marc.com.core.domain.usecase.CharacterUseCase
 import android.marc.com.harrypotterapp.detail.DetailViewModel
+import android.marc.com.harrypotterapp.di.AppScope
 import android.marc.com.harrypotterapp.favorite.FavoriteViewModel
 import android.marc.com.harrypotterapp.main.MainViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 
-class ViewModelFactory private constructor(private val characterUseCase: CharacterUseCase): ViewModelProvider.NewInstanceFactory() {
-
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance
-                ?: synchronized(this) {
-                    instance ?: ViewModelFactory(Injection.provideCharacterUseCase(context))
-                }
-    }
+@AppScope
+class ViewModelFactory @Inject constructor(private val characterUseCase: CharacterUseCase): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

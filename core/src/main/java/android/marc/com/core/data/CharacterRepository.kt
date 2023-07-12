@@ -10,26 +10,15 @@ import android.marc.com.core.utils.AppExecutors
 import android.marc.com.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CharacterRepository private constructor(
+@Singleton
+class CharacterRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : ICharacterRepository {
-    companion object {
-        @Volatile
-        private var instance: CharacterRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): CharacterRepository =
-            instance ?: synchronized(this) {
-                instance ?: CharacterRepository(remoteData, localData, appExecutors)
-            }
-    }
-
     override fun getAllCharacters(): Flow<ResourceStatus<List<Character>>> =
         object : NetworkBoundResource<List<CharacterResponse>, List<Character>>(appExecutors) {
             override fun loadFromDB(): Flow<List<Character>> {

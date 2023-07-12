@@ -3,25 +3,34 @@ package android.marc.com.harrypotterapp.favorite
 import android.content.Intent
 import android.marc.com.core.domain.model.Character
 import android.marc.com.core.ui.CharacterAdapter
+import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityFavoriteBinding
 import android.marc.com.harrypotterapp.detail.DetailActivity
 import android.marc.com.harrypotterapp.main.MainActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import javax.inject.Inject
 
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var favoriteViewModel: FavoriteViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        factory
+    }
     private lateinit var rvFavoriteCharacter: RecyclerView
     private lateinit var favoriteCharacterAdapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -52,9 +61,6 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(adapter: CharacterAdapter) {
-        val factory = ViewModelFactory.getInstance(this)
-        favoriteViewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
-
         favoriteViewModel.favoriteCharacters.observe(this) { favoriteCharacters ->
             if (favoriteCharacters.isEmpty()) {
                 binding.noDataTv.visibility = View.VISIBLE

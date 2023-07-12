@@ -2,30 +2,35 @@ package android.marc.com.harrypotterapp.detail
 
 import android.marc.com.core.R.drawable
 import android.marc.com.core.domain.model.Character
+import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityDetailBinding
 import android.marc.com.harrypotterapp.main.MainActivity
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityDetailBinding
-    private lateinit var detailViewModel: DetailViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val detailViewModel: DetailViewModel by viewModels {
+        factory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val factory = ViewModelFactory.getInstance(this)
-        detailViewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
-
 
         val detailCharacter = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(MainActivity.CHARACTER_KEY_EXTRA, Character::class.java)

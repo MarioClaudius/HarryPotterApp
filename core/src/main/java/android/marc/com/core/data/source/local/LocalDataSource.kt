@@ -3,16 +3,11 @@ package android.marc.com.core.data.source.local
 import android.marc.com.core.data.source.local.entity.CharacterEntity
 import android.marc.com.core.data.source.local.room.CharacterDao
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LocalDataSource private constructor(private val characterDao: CharacterDao){
-    companion object {
-        private var instance: LocalDataSource? = null
-
-        fun getInstance(characterDao: CharacterDao): LocalDataSource =
-            instance ?: synchronized(this) {
-                instance ?: LocalDataSource(characterDao)
-            }
-    }
+@Singleton
+class LocalDataSource @Inject constructor(private val characterDao: CharacterDao){
 
     fun getAllCharacters() : Flow<List<CharacterEntity>> = characterDao.getAllCharacters()
 

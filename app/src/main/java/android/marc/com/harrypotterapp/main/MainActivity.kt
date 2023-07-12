@@ -4,6 +4,7 @@ import android.content.Intent
 import android.marc.com.core.data.ResourceStatus
 import android.marc.com.core.domain.model.Character
 import android.marc.com.core.ui.CharacterAdapter
+import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityMainBinding
@@ -13,19 +14,27 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val mainViewModel: MainViewModel by viewModels {
+        factory
+    }
     private lateinit var rvCharacter: RecyclerView
     private lateinit var characterAdapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -52,9 +61,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(adapter: CharacterAdapter) {
-        val factory = ViewModelFactory.getInstance(this)
-        mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
-
         mainViewModel.characters.observe(this) { characters ->
             if (characters != null) {
                 when(characters) {

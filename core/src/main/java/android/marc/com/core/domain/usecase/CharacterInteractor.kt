@@ -4,8 +4,9 @@ import android.marc.com.core.data.ResourceStatus
 import android.marc.com.core.domain.model.Character
 import android.marc.com.core.domain.repository.ICharacterRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class CharacterInteractor(private val characterRepository: ICharacterRepository): CharacterUseCase {
+class CharacterInteractor @Inject constructor(private val characterRepository: ICharacterRepository): CharacterUseCase {
     override fun getAllCharacters(): Flow<ResourceStatus<List<Character>>> = characterRepository.getAllCharacters()
 
     override fun getFavoriteCharacters(): Flow<List<Character>> = characterRepository.getFavoriteCharacters()
