@@ -6,7 +6,7 @@ import android.marc.com.core.domain.model.Character
 import android.marc.com.core.ui.CharacterAdapter
 import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
-import android.marc.com.harrypotterapp.ViewModelFactory
+import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityMainBinding
 import android.marc.com.harrypotterapp.detail.DetailActivity
 import android.marc.com.harrypotterapp.favorite.FavoriteActivity
@@ -16,7 +16,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject

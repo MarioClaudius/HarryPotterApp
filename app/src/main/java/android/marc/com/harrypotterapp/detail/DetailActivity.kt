@@ -4,7 +4,7 @@ import android.marc.com.core.R.drawable
 import android.marc.com.core.domain.model.Character
 import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
-import android.marc.com.harrypotterapp.ViewModelFactory
+import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityDetailBinding
 import android.marc.com.harrypotterapp.main.MainActivity
 import android.os.Build
@@ -12,7 +12,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import javax.inject.Inject
 

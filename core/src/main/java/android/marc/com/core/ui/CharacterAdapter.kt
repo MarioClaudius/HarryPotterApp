@@ -3,13 +3,11 @@ package android.marc.com.core.ui
 import android.marc.com.core.R
 import android.marc.com.core.databinding.ItemListDataBinding
 import android.marc.com.core.domain.model.Character
-import android.marc.com.harrypotterapp.di.AppScope
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-@AppScope
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     private var onItemClickCallBack: OnItemClickCallback? = null
