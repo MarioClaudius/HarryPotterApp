@@ -1,11 +1,13 @@
 package android.marc.com.harrypotterapp.detail
 
 import android.marc.com.core.R.drawable
+import android.marc.com.core.di.DaggerCoreComponent
 import android.marc.com.core.domain.model.Character
 import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityDetailBinding
+import android.marc.com.harrypotterapp.di.DaggerAppComponent
 import android.marc.com.harrypotterapp.main.MainActivity
 import android.os.Build
 import android.os.Bundle
@@ -26,7 +28,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
+        val coreComponent = DaggerCoreComponent.factory().create(applicationContext)
+        DaggerAppComponent.factory().create(coreComponent).inject(this)
+//        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
