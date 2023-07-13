@@ -2,7 +2,6 @@ package android.marc.com.harrypotterapp.di
 
 import android.marc.com.core.di.CoreComponent
 import android.marc.com.harrypotterapp.detail.DetailActivity
-import android.marc.com.harrypotterapp.favorite.FavoriteActivity
 import android.marc.com.harrypotterapp.main.MainActivity
 import dagger.Component
 
@@ -19,5 +18,4 @@ interface AppComponent {
 
     fun inject(activity: MainActivity)
     fun inject(activity: DetailActivity)
-    fun inject(activity: FavoriteActivity)
 }

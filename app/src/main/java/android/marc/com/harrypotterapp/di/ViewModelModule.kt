@@ -1,9 +1,8 @@
 package android.marc.com.harrypotterapp.di
 
-import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.detail.DetailViewModel
-import android.marc.com.harrypotterapp.favorite.FavoriteViewModel
 import android.marc.com.harrypotterapp.main.MainViewModel
+import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
@@ -23,11 +22,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     abstract fun bindDetailViewModel(viewModel: DetailViewModel) : ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(FavoriteViewModel::class)
-    abstract fun bindFavoriteViewModel(viewModel: FavoriteViewModel) : ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

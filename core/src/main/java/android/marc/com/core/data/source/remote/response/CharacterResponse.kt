@@ -1,6 +1,5 @@
 package android.marc.com.core.data.source.remote.response
 
-import androidx.annotation.Nullable
 import com.google.gson.annotations.SerializedName
 
 data class CharacterResponse(

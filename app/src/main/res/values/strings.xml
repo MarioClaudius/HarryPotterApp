@@ -3,4 +3,5 @@
     <string name="harrypotterapp_title">HarryPotter\nApp</string>
 
     <string name="no_data_found">No data found</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

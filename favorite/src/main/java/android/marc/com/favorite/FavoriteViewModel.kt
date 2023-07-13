@@ -1,4 +1,4 @@
-package android.marc.com.harrypotterapp.favorite
+package android.marc.com.favorite
 
 import android.marc.com.core.domain.usecase.CharacterUseCase
 import androidx.lifecycle.ViewModel

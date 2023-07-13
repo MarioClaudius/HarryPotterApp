@@ -9,7 +9,7 @@ import android.marc.com.harrypotterapp.R
 import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityMainBinding
 import android.marc.com.harrypotterapp.detail.DetailActivity
-import android.marc.com.harrypotterapp.favorite.FavoriteActivity
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -86,17 +86,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.favorite -> {
-                val intentToFavorite = Intent(this@MainActivity, FavoriteActivity::class.java)
+                val uri = Uri.parse("harrypotterapp://favorite")
+                val intentToFavorite = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intentToFavorite)
                 true
             }
             else -> true
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        characterAdapter.notifyDataSetChanged()
     }
 
     companion object {
