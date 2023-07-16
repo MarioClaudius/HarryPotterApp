@@ -2,15 +2,13 @@ package android.marc.com.harrypotterapp.main
 
 import android.content.Intent
 import android.marc.com.core.data.ResourceStatus
-import android.marc.com.core.di.DaggerCoreComponent
 import android.marc.com.core.domain.model.Character
 import android.marc.com.core.ui.CharacterAdapter
 import android.marc.com.harrypotterapp.MyApplication
 import android.marc.com.harrypotterapp.R
-import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.marc.com.harrypotterapp.databinding.ActivityMainBinding
 import android.marc.com.harrypotterapp.detail.DetailActivity
-import android.marc.com.harrypotterapp.di.DaggerAppComponent
+import android.marc.com.harrypotterapp.ui.ViewModelFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +22,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import java.lang.Exception
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -40,9 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var characterAdapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val coreComponent = DaggerCoreComponent.factory().create(applicationContext)
-        DaggerAppComponent.factory().create(coreComponent).inject(this)
-//        (application as MyApplication).appComponent.inject(this)
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -96,7 +91,8 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId) {
             R.id.favorite -> {
                 try {
-                    installFavoriteModule()
+                    // installFavoriteModule()
+                    moveToFavoriteActivity()
                 } catch (e: Exception) {
                     Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
                 }

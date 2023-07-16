@@ -7,7 +7,7 @@ import android.marc.com.harrypotterapp.di.AppComponent
 import android.marc.com.harrypotterapp.di.DaggerAppComponent
 
 class MyApplication : Application(){
-    private val coreComponent: CoreComponent by lazy {
+    val coreComponent: CoreComponent by lazy {
         DaggerCoreComponent.factory().create(applicationContext)
     }
 
