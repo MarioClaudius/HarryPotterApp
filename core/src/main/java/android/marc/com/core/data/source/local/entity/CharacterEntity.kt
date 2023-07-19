@@ -1,7 +1,5 @@
 package android.marc.com.core.data.source.local.entity
 
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +8,6 @@ import androidx.room.PrimaryKey
 data class CharacterEntity(
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "character_id")
     var characterId: String,
 
@@ -27,7 +24,6 @@ data class CharacterEntity(
     var house: String,
 
     @ColumnInfo(name = "date_of_birth")
-    @Nullable
     var dateOfBirth: String,
 
     @ColumnInfo(name = "is_wizard")
