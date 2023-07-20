@@ -1,5 +1,6 @@
 package android.marc.com.core.ui
 
+import android.annotation.SuppressLint
 import android.marc.com.core.R
 import android.marc.com.core.databinding.ItemListDataBinding
 import android.marc.com.core.domain.model.Character
