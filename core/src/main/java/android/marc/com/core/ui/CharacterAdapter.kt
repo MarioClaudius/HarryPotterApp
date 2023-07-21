@@ -1,11 +1,11 @@
 package android.marc.com.core.ui
 
-import android.annotation.SuppressLint
 import android.marc.com.core.R
 import android.marc.com.core.databinding.ItemListDataBinding
 import android.marc.com.core.domain.model.Character
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -16,9 +16,11 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     private var characterListData = ArrayList<Character>()
     fun setData(newCharacterListData: List<Character>?) {
         if (newCharacterListData == null) return
+        val diffCallback = CharacterDiffCallback(characterListData, newCharacterListData)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         characterListData.clear()
         characterListData.addAll(newCharacterListData)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     inner class CharacterViewHolder(var binding: ItemListDataBinding) : RecyclerView.ViewHolder(binding.root)
