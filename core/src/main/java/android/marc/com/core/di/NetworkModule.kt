@@ -15,8 +15,8 @@ class NetworkModule {
 
     @Provides
     fun provideCertificatePinner(): CertificatePinner = CertificatePinner.Builder()
-        .add("hp-api.onrender.com", "sha256/FhZ/ntpC0jSQ+ZBqPeQVbLCf29Pb+k9Ki31luISkWQo=")
-        .add("hp-api.onrender.com", "sha256/8xoDcrs2LNLr7MXkvzFEmk5ILiKRIILkK1sEKWZy5Oo=")
+        .add("hp-api.onrender.com", "sha256/RFaIwRi0LrYXoW3ycESQfibZcT21s9v3ZsVOqrZ2Z44=")
+        .add("hp-api.onrender.com", "sha256/Ykrblh/EqE5mPN/z/XGrdBteJDOJ10qFrrrI41ldfWM=")
         .build()
 
     @Provides
@@ -32,7 +32,7 @@ class NetworkModule {
     @Provides
     fun provideApiService(client: OkHttpClient): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://hp-api.onrender.com/api/")
+            .baseUrl("https://hp-api.herokuapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

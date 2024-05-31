@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId) {
             R.id.favorite -> {
                 try {
-                    // installFavoriteModule()
+                    installFavoriteModule()
                     moveToFavoriteActivity()
                 } catch (e: Exception) {
                     Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
